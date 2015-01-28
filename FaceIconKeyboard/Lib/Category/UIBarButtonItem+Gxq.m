@@ -1,0 +1,48 @@
+//
+//  UIBarButtonItem+Gxq.m
+//  andaotong
+//
+//  Created by Gxq on 14-6-30.
+//  Copyright (c) 2014年 adt. All rights reserved.
+//
+
+#import "UIBarButtonItem+Gxq.h"
+
+@implementation UIBarButtonItem (Gxq)
+
+
+
+
+
++ (UIBarButtonItem *)itemWithIcon:(NSString *)icon highIcon:(NSString *)highIcon target:(id)target action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:highIcon] forState:UIControlStateHighlighted];
+    button.frame = (CGRect){CGPointZero, button.currentBackgroundImage.size};
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
++ (UIBarButtonItem *)itemWithIcon:(NSString *)icon title:(NSString *)title highIcon:(NSString *)highIcon target:(id)target action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:highIcon] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
+    [button setTitle:title forState:UIControlStateNormal];
+
+    NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:15]};
+    CGSize titleSize = [button.titleLabel.text  boundingRectWithSize:CGSizeMake(100, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+
+    
+    
+    button.frame = (CGRect){CGPointZero,{titleSize.width + 11,30}};
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+
+
+@end
